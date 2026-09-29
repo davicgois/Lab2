@@ -12,16 +12,32 @@ public class Disciplina {
         this.nomeDisciplina = nomeDisciplina;
     }
 
-    }
 
     public void cadastraHoras(int horas) {
+        this.horasEstudo += horas;
 
     }
 
     public void cadastraNota(int nota, double valorNota) {
+        if (nota == 1) {
+            this.nota1 = valorNota;
 
+        } else if (nota == 2) {
+            this.nota2 = valorNota;
+
+        } else if (nota == 3) {
+            this.nota3 = valorNota;
+
+        } else if (nota == 4) {
+            this.nota4 = valorNota;
+
+        }
     }
+
+
 
     public double calculaMedia() {
 
+
     }
+}
