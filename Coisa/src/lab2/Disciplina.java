@@ -34,10 +34,26 @@ public class Disciplina {
         }
     }
 
+public boolean aprovado(){
+        if (calculaMedia() >= 7){
+            return true;
+        } else {
+            return false;
+        }
 
+}
 
     public double calculaMedia() {
+        double media = (nota1 + nota2 + nota3 + nota4) / 4;
+        return media;
 
 
     }
+
+    @Override
+    public String toString() {
+        double[] notas = {nota1, nota2, nota3, nota4};
+        return nomeDisciplina + " " + horasEstudo + " " + calculaMedia() +  notas +"\n";
+    }
+
 }
