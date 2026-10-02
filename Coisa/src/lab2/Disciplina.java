@@ -1,4 +1,6 @@
 package lab2;
+import java.util.Arrays;
+
 public class Disciplina {
 
     private String nomeDisciplina;
@@ -53,7 +55,7 @@ public boolean aprovado(){
     @Override
     public String toString() {
         double[] notas = {nota1, nota2, nota3, nota4};
-        return nomeDisciplina + " " + horasEstudo + " " + calculaMedia() +  notas +"\n";
+        return nomeDisciplina + " " + horasEstudo + " " + calculaMedia() + " " + Arrays.toString(notas);
     }
 
 }
