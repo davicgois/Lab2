@@ -1,9 +1,8 @@
 package lab2;
+import java.util.Arrays;
 public class RegistroResumos {
 
-    private String[] temas;
-
-    private String[] conteudos;
+    private Resumo[] resumos;
 
     private int quantidadeAtual;
 
@@ -11,19 +10,17 @@ public class RegistroResumos {
 
     private int limite;
 
-
     public RegistroResumos(int numeroDeResumos) {
         this.limite = numeroDeResumos;
         this.proximoIndice = 0;
         this.quantidadeAtual = 0;
-        this.temas = new String[numeroDeResumos];
-        this.conteudos = new String[numeroDeResumos];
+        this.resumos = new Resumo[numeroDeResumos];
 
     }
 
     private int buscaIndice(String tema) {
         for (int i = 0; i < this.quantidadeAtual; i++) {
-            if (tema.equals(this.temas[i])) {
+            if (tema.equals(this.resumos[i].getTema())) {
                 return i;
             }
         }
@@ -33,14 +30,12 @@ public class RegistroResumos {
     public void adicionaResumo(String tema, String conteudo) {
         int indiceExistente = buscaIndice(tema);
         if (indiceExistente != -1) {
-            this.conteudos[indiceExistente] = conteudo;
+            this.resumos[indiceExistente] = new Resumo(tema, conteudo);
             return;
         }
-        this.temas[this.proximoIndice] = tema;
-        this.conteudos[this.proximoIndice] = conteudo;
 
+        this.resumos[this.proximoIndice] = new Resumo(tema, conteudo);
         this.proximoIndice = (this.proximoIndice + 1) % this.limite;
-
 
         if (this.quantidadeAtual < this.limite) {
             this.quantidadeAtual++;
@@ -50,10 +45,9 @@ public class RegistroResumos {
     public String[] pegaResumos() {
         String[] resultado = new String[this.quantidadeAtual];
         for (int i = 0; i < this.quantidadeAtual; i++) {
-            resultado[i] = this.temas[i] + ": " + this.conteudos[i];
+            resultado[i] = this.resumos[i].getTema() + ": " + this.resumos[i].getConteudo();
         }
         return resultado;
-
     }
 
     public int contaResumo() {
@@ -70,9 +64,34 @@ public class RegistroResumos {
             if (i > 0) {
                 listaTemas += " | ";
             }
-            listaTemas += this.temas[i];
+            listaTemas += this.resumos[i].getTema();
         }
         return "- " + this.quantidadeAtual + " resumo(s) cadastrado(s)\n- " + listaTemas;
+    }
+
+    public String[] busca(String chave) {
+        int cont = 0;
+        String chaveTratada = chave.toLowerCase();
+
+        for (int i = 0; i < this.quantidadeAtual; i++) {
+            if (this.resumos[i].getConteudo().toLowerCase().contains(chaveTratada)) {
+                cont++;
+            }
+        }
+
+
+        String[] temasEncontrados = new String[cont];
+        int indice = 0;
+        for (int i = 0; i < this.quantidadeAtual; i++) {
+            if (this.resumos[i].getConteudo().toLowerCase().contains(chaveTratada)) {
+                temasEncontrados[indice] = this.resumos[i].getTema();
+                indice++;
+            }
+        }
+
+        Arrays.sort(temasEncontrados);
+
+        return temasEncontrados;
     }
 
 }
